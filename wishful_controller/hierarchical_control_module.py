@@ -1,3 +1,4 @@
+import socket
 import logging
 import inspect
 import gevent
@@ -122,3 +123,7 @@ class HierarchicalControlModule(wishful_module.ControllerModule):
         else:
             retVal = self.controller.blocking(True).mgmt.send_msg_to_local_control_program(fid, msg)
         return retVal
+
+    @wishful_module.bind_function(upis.mgmt.get_hostname)
+    def get_hostname(self):
+        return socket.gethostname()
